@@ -1,5 +1,6 @@
 package securityservices.core.components.client.appservices;
 
+import securityservices.core.components.client.domain.services.JaxbClientDTO;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import securityservices.core.components.client.domain.services.ClientDTO;
@@ -31,14 +32,14 @@ public class JaxbClientSerializer extends Jaxb implements Serializer {
 //String name, String email, String birthday, String password, String phone, String ident, String address, int numEquipments, int clientCode) {    
             ClientDTO cdto = new ClientDTO(
                     jaxbcdto.getName(),
+                    jaxbcdto.getCode(),
                     jaxbcdto.getEmail(),
+                    jaxbcdto.getPhone(),
+                    jaxbcdto.getAddress(),
                     jaxbcdto.getBirthday(),
                     jaxbcdto.getPassword(),
-                    jaxbcdto.getPhone(),
-                    jaxbcdto.getClientCode(),
-                    jaxbcdto.getAddress(),
-                    jaxbcdto.getClientCode(),
-                    Integer.valueOf(jaxbcdto.getNumEquipments())
+                    jaxbcdto.getClientId(),
+                    jaxbcdto.getNumEquipments()
             );
             return cdto;
         } catch (JAXBException ex) {
@@ -68,5 +69,4 @@ public class JaxbClientSerializer extends Jaxb implements Serializer {
                     + ex + "}");
         }
     }
-
 }

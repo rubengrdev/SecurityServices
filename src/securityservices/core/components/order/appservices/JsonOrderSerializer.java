@@ -1,11 +1,11 @@
 package securityservices.core.components.order.appservices;
 
+import securityservices.core.components.order.domain.model.OrderDetail;
 import securityservices.core.components.order.domain.services.OrderDTO;
 import securityservices.core.components.shared.exception.ServiceException;
 import securityservices.core.components.shared.services.serializers.Json;
 import securityservices.core.components.shared.services.serializers.JsonObjectFactory;
 import securityservices.core.components.shared.services.serializers.Serializer;
-
 
 public class JsonOrderSerializer implements Serializer {
 
@@ -13,6 +13,7 @@ public class JsonOrderSerializer implements Serializer {
 
     public JsonOrderSerializer() {
     }
+
 
     @Override
     public OrderDTO unserialize(String data) throws ServiceException {
@@ -31,7 +32,8 @@ public class JsonOrderSerializer implements Serializer {
                     jOrder.get("paymentType"),
                     jOrder.get("paymentDate"),
                     jOrder.get("reciverName"),
-                    jOrder.get("deliveryAddress")
+                    jOrder.get("deliveryAddress"),
+                    jOrder.get("details")
             );
             return order;
 
@@ -62,9 +64,17 @@ public class JsonOrderSerializer implements Serializer {
         } else {
 //en el caso de que no haya estos campos devuelve un espacio vacio
             jOrder.set("reciverName", "");
-            jOrder.set("deliveryAddress","");
+            jOrder.set("deliveryAddress", "");
         }
+
+        // jOrder.set("details", "detalles reffff");
+        jOrder.set("details", ((OrderDTO) order).getDetails());
         return jOrder.toString();
+
     }
 
-}
+
+
+    }
+
+

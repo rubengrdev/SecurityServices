@@ -20,12 +20,12 @@ public class XmlClientSerializer implements Serializer {
 //String name, String email, String birthday, String password, String phone, String ident, String address, int numEquipments, int clientCode) {                        
             ClientDTO client = new ClientDTO(
                     xmlConverter.getValueNode("name"),
+                    xmlConverter.getValueNode("code"),
                     xmlConverter.getValueNode("email"),
+                    xmlConverter.getValueNode("phone"),
+                    xmlConverter.getValueNode("address"),
                     xmlConverter.getValueNode("birthday"),
                     xmlConverter.getValueNode("password"),
-                    xmlConverter.getValueNode("phone"),
-                    xmlConverter.getValueNode("code"),
-                    xmlConverter.getValueNode("address"),
                     xmlConverter.getValueNode("clientCode"),
                     Integer.valueOf(xmlConverter.getValueNode("equipments"))
             );
@@ -40,11 +40,11 @@ public class XmlClientSerializer implements Serializer {
     public String serialize(Object c) {
         xmlConverter.createDocument();
         xmlConverter.setRootNode("client");
-        xmlConverter.setNode("code", ((ClientDTO) c).getIdent());
         xmlConverter.setNode("name", ((ClientDTO) c).getName());
-        xmlConverter.setNode("address", ((ClientDTO) c).getAddress());
-        xmlConverter.setNode("phone", ((ClientDTO) c).getPhone());
         xmlConverter.setNode("email", ((ClientDTO) c).getEmail());
+        xmlConverter.setNode("code", ((ClientDTO) c).getIdent());
+        xmlConverter.setNode("phone", ((ClientDTO) c).getPhone());
+        xmlConverter.setNode("address", ((ClientDTO) c).getAddress());
         xmlConverter.setNode("birthday", ((ClientDTO) c).getBirthday());
         xmlConverter.setNode("password", ((ClientDTO) c).getPassword());
         xmlConverter.setNode("clientid", String.valueOf(((ClientDTO) c).getClientCode()));

@@ -6,6 +6,7 @@ package securityservices.management.catalogs.serializers;
 
 import securityservices.core.components.equipment.domain.model.Equipment;
 import securityservices.core.components.shared.catalogs.ProductCatalog;
+import securityservices.core.components.shared.products.Marketable;
 import securityservices.core.components.shared.products.Service;
 import securityservices.core.components.shared.products.Software;
 

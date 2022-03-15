@@ -2,14 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Tests;
+package TestsJSON;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import org.json.JSONException;
+import org.json.JSONObject;
 import securityservices.core.components.client.domain.model.Client;
-import securityservices.core.components.client.domain.services.ClientDTO;
 import securityservices.core.components.order.appservices.JsonOrderSerializer;
 import securityservices.core.components.order.domain.model.Order;
 import securityservices.core.components.order.domain.services.OrderDTO;
@@ -26,7 +23,7 @@ import securityservices.management.catalogs.serializers.GetStakeHolder;
  */
 public class OrderSerializer {
 
-    public static void main(String[] args) throws BuildException, ServiceException {
+    public static void main(String[] args) throws BuildException, ServiceException, JSONException {
         try {
             System.out.println("\n\n");
             ProductCatalog prod = GetCatalogProduct.getInstance();
@@ -54,7 +51,8 @@ public class OrderSerializer {
                     + "  \"paymentType\": \"VISA\","
                     + "  \"paymentDate\": \"13-03-2022-17:22:02\","
                     + "  \"reciverName\": \"rockye\","
-                    + "  \"deliveryAddress\": \"c/Montflorit nº 3\""
+                    + "  \"deliveryAddress\": \"c/Montflorit nº 3\","
+                    + "  \"details\": \" 001\""
                     + "}";
 
             String newJsonOrder = "{"
@@ -67,7 +65,8 @@ public class OrderSerializer {
                     + "  \"beginDate\": \"22-12-2021-22:01:17\","
                     + "  \"finishDate\": \"14-01-2022-10:30:22\","
                     + "  \"paymentType\": \"PayPal\","
-                    + "  \"paymentDate\": \"23-12-2021-22:30:13\""
+                    + "  \"paymentDate\": \"23-12-2021-22:30:13\","
+                    + "  \"details\": \" 010\""
                     + "}";
 //fake JsonOrder (Para probar los errores, se mostrarán al final del documento)
             String newFakeOnOrders = "{"
@@ -80,7 +79,8 @@ public class OrderSerializer {
                     + "  \"beginDate\": \"22-12-2021-22:01:17\","
                     + "  \"finishDate\": \"14-01-2022-10:30:22\","
                     + "  \"paymentType\": \"Moneditas\","
-                    + "  \"paymentDate\": \"23-12-2021-22:30:13\""
+                    + "  \"paymentDate\": \"23-12-2021-22:30:13\","
+                    + "  \"details\": \" 010\""
                     + "}";
             //SERIALITZACIO JSON AMB UNA LLIBRERIA ESTABLERTA PER DEFECTE
             JsonOrderSerializer joSerializer = new JsonOrderSerializer();
@@ -102,10 +102,19 @@ public class OrderSerializer {
             try {
                 auxOdto = (OrderDTO) joSerializer.unserialize(newJsonOrderTransport);
                 System.out.println("Unserialize");
-                System.out.println(auxOdto.getCode() + ";" + auxOdto.getInterested() + ";" + auxOdto.getValue() + ";" + auxOdto.getSurcharges() + ";" + auxOdto.getStatus() + ";" + auxOdto.getComments() + ";" + auxOdto.getBeginDate() + ";" + auxOdto.getFinishDate() + ";" + auxOdto.getPaymentType() + ";" + auxOdto.getReciverName() + ";" + auxOdto.getDeliveryAddress());
+                System.out.println(auxOdto.getCode() + ";" + auxOdto.getInterested() + ";" + auxOdto.getValue() + ";" + auxOdto.getSurcharges() + ";" + auxOdto.getStatus() + ";" + auxOdto.getComments() + ";" + auxOdto.getBeginDate() + ";" + auxOdto.getFinishDate() + ";" + auxOdto.getPaymentType() + ";" + auxOdto.getReciverName() + ";" + auxOdto.getDeliveryAddress() + ";");
+                //aunque para poder utilizar esta cadena me iría bien dejar una String delimitada por comas ";" para hacerlo más visual para ESTA Práctica he separado de esta manera para no ver un null en el caso de que no haya Detalles de Orden
+                if (auxOdto.getDetails() != null) {
+                    System.out.println(auxOdto.getDetails() + ";");
+                }
                 auxOrder = OrderMapper.orderFromDTO(auxOdto);
                 System.out.println("Serialize -> OrderFromDTO (auxOrder) has transport");
-                System.out.println(auxOrder.getCode() + ";" + auxOrder.getInterested() + ";" + auxOrder.getValue() + ";" + auxOrder.getSurcharges() + ";" + auxOrder.getStatus() + ";" + auxOrder.getComments() + ";" + auxOrder.getBeginDate() + ";" + auxOrder.getFinishDate() + ";" + auxOrder.getPaymentType() + ";" + auxOrder.getReciverName() + ";" + auxOrder.getDeliveryAddress());
+                System.out.println(auxOrder.getCode() + ";" + auxOrder.getInterested() + ";" + auxOrder.getValue() + ";" + auxOrder.getSurcharges() + ";" + auxOrder.getStatus() + ";" + auxOrder.getComments() + ";" + auxOrder.getBeginDate() + ";" + auxOrder.getFinishDate() + ";" + auxOrder.getPaymentType() + ";" + auxOrder.getReciverName() + ";" + auxOrder.getDeliveryAddress() + ";");
+                if (auxOrder.getAllDetails() != null) {
+                    System.out.println(auxOrder.getAllDetails() + ";");
+                    System.out.println(getJsonDetails(auxOrder.getAllDetails()));
+                }
+                System.out.println("---------------------------------------------------------------------------------------------------------------------------------------");
 
             } catch (ServiceException s) {
                 System.out.println(s);
@@ -118,9 +127,17 @@ public class OrderSerializer {
                 auxOdto = (OrderDTO) joSerializer.unserialize(newJsonOrder);
                 System.out.println("Unserialize");
                 System.out.println(auxOdto.getCode() + ";" + auxOdto.getInterested() + ";" + auxOdto.getValue() + ";" + auxOdto.getSurcharges() + ";" + auxOdto.getStatus() + ";" + auxOdto.getComments() + ";" + auxOdto.getBeginDate() + ";" + auxOdto.getFinishDate() + ";" + auxOdto.getPaymentType() + ";");
+                //aunque para poder utilizar esta cadena me iría bien dejar una String delimitada por comas ";" para hacerlo más visual para ESTA Práctica he separado de esta manera para no ver un null en el caso de que no haya Detalles de Orden
+                if (auxOdto.getDetails() != null) {
+                    System.out.println(auxOdto.getDetails() + ";");
+                }
                 auxOrder = OrderMapper.orderFromDTO(auxOdto);
                 System.out.println("Serialize -> OrderFromDTO (auxOrder) hasn't transport");
                 System.out.println(auxOrder.getCode() + ";" + auxOrder.getInterested() + ";" + auxOrder.getValue() + ";" + auxOrder.getSurcharges() + ";" + auxOrder.getStatus() + ";" + auxOrder.getComments() + ";" + auxOrder.getBeginDate() + ";" + auxOrder.getFinishDate() + ";" + auxOrder.getPaymentType() + ";");
+                if (auxOrder.getAllDetails() != null) {
+                    System.out.println(auxOrder.getAllDetails() + ";");
+                    System.out.println(getJsonDetails(auxOrder.getAllDetails()));
+                }
             } catch (ServiceException s) {
                 System.out.println(s);
             }
@@ -136,6 +153,10 @@ public class OrderSerializer {
                 auxOrder = OrderMapper.orderFromDTO(auxOdto);
                 System.out.println("Serialize -> OrderFromDTO (auxOrder) fakeeee transport");
                 System.out.println(auxOrder.getCode() + ";" + auxOrder.getInterested() + ";" + auxOrder.getValue() + ";" + auxOrder.getSurcharges() + ";" + auxOrder.getStatus() + ";" + auxOrder.getComments() + ";" + auxOrder.getBeginDate() + ";" + auxOrder.getFinishDate() + ";" + auxOrder.getPaymentType() + ";");
+                if (auxOrder.getAllDetails() != null) {
+                    System.out.println(auxOrder.getAllDetails() + ";");
+                    System.out.println(getJsonDetails(auxOrder.getAllDetails()));
+                }
             } catch (ServiceException s) {
                 System.out.println(s);
             }
@@ -143,5 +164,18 @@ public class OrderSerializer {
         } catch (BuildException ex) {
             System.out.println(ex);
         }
+    }
+
+    public static String getJsonDetails(String json) throws JSONException {
+        JSONObject jsonDetail = new JSONObject(json);
+        String bigString = "";
+        for (int i = 0; i < jsonDetail.names().length(); i++) {
+            String ref = jsonDetail.getString("ref");
+            String name = jsonDetail.getString("name");
+            Double price = jsonDetail.getDouble("price");
+
+            bigString += ref + ";" + name + ";" + price + ";";
+        }
+        return bigString;
     }
 }

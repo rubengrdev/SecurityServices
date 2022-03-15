@@ -9,11 +9,14 @@ import securityservices.management.catalogs.serializers.GetStakeHolder;
 
 public class OrderMapper {
 
+    private static Order o;
+
     public static Order orderFromDTO(OrderDTO odto) throws BuildException {
         ProductCatalog prod = GetCatalogProduct.getInstance();
+        Order o;
         if (odto.getReciverName() == null || odto.getReciverName().equals("") == true) {
             //no tiene envio
-            return Order.getInstance(
+            o = Order.getInstance(
                     prod, //INSERTAMOS EL CATÁLOGO
                     odto.getCode(),
                     GetStakeHolder.getStakeHolderCode(odto.getInterested()),
@@ -26,23 +29,29 @@ public class OrderMapper {
                     odto.getPaymentType(),
                     odto.getPaymentDate()
             );
+        } else {
+            //tiene envio
+            o = Order.getInstance(
+                    prod, //INSERTAMOS EL CATÁLOGO
+                    odto.getCode(),
+                    GetStakeHolder.getStakeHolderCode(odto.getInterested()),
+                    odto.getValue(),
+                    odto.getSurcharges(),
+                    odto.getStatus(),
+                    odto.getComments(),
+                    odto.getBeginDate(),
+                    odto.getFinishDate(),
+                    odto.getPaymentType(),
+                    odto.getPaymentDate(),
+                    odto.getReciverName(),
+                    odto.getDeliveryAddress()
+            );
         }
-        //tiene envio
-        return Order.getInstance(
-                prod, //INSERTAMOS EL CATÁLOGO
-                odto.getCode(),
-                GetStakeHolder.getStakeHolderCode(odto.getInterested()),
-                odto.getValue(),
-                odto.getSurcharges(),
-                odto.getStatus(),
-                odto.getComments(),
-                odto.getBeginDate(),
-                odto.getFinishDate(),
-                odto.getPaymentType(),
-                odto.getPaymentDate(),
-                odto.getReciverName(),
-                odto.getDeliveryAddress()
-        );
+
+        o.setDetail("010", 2);
+        o.setDetail("012", 5);
+        return o;
+
     }
 
     public static OrderDTO dtoFromOrder(Order o) {
@@ -58,9 +67,12 @@ public class OrderMapper {
                 o.getPaymentType(),
                 o.getPaymentDate(),
                 o.getReciverName(),
-                o.getDeliveryAddress()
+                o.getDeliveryAddress(),
+                o.getAllDetails()
         );
     }
+
+ 
 }
 
 /*

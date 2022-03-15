@@ -1,4 +1,4 @@
-package securityservices.core.components.shared.services.serializers.xmlapis;
+package securityservices.core.components.shared.services.serializers;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -20,7 +20,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import securityservices.core.components.shared.services.serializers.Xml;
 
 public class Dom implements Xml{
     protected DocumentBuilder builder;
@@ -38,7 +37,6 @@ public class Dom implements Xml{
             iscreated = false;
         }
     }
-
 
     public Boolean getIscreated() {
         return iscreated;

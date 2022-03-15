@@ -22,12 +22,26 @@ public class ClientMapper {
     public static ClientDTO dtoFromClient(Client c) {
         return new ClientDTO(
                 c.getName(),
+                c.getIdent(),
                 c.getEmail(),
+                c.getPhone(),
+                c.getAddress(),
                 c.getDateOfBirth(),
                 c.getPassword(),
-                c.getPhone(),
+                c.getClientCode(),
+                c.getNumEquipments()
+        );
+    }
+
+    public static JaxbClientDTO jaxbDtoFromClient(Client c) {
+        return new JaxbClientDTO(
+                c.getName(),
                 c.getIdent(),
+                c.getEmail(),
+                c.getPhone(),
                 c.getAddress(),
+                c.getDateOfBirth(),
+                c.getPassword(),
                 c.getClientCode(),
                 c.getNumEquipments()
         );

@@ -20,13 +20,13 @@ public class JsonClientSerializer implements Serializer {
 //String name, String email, String birthday, String password, String phone, String ident, String address, int numEquipments, int clientCode) {            
             ClientDTO client = new ClientDTO(
                     jClient.get("name"),
+                    jClient.get("ident"),
                     jClient.get("email"),
+                    jClient.get("phone"),
+                    jClient.get("address"),
                     jClient.get("birthday"),
                     jClient.get("password"),
-                    jClient.get("phone"),
-                    jClient.get("ident"),
-                    jClient.get("address"),
-                   jClient.get("clientCode"),
+                    jClient.get("clientCode"),
                     Integer.valueOf(jClient.get("numequipments"))
             );
             return client;

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import securityservices.core.components.shared.catalogs.ProductCatalog;
 import securityservices.core.components.shared.exception.BuildException;
 import securityservices.core.components.shared.stakeholders.StakeHolder;
+import securityservices.management.catalogs.serializers.GetCatalogProduct;
 
 public class Order extends Operation {
 
@@ -221,10 +222,10 @@ public class Order extends Operation {
         Matcher matcher = pattern.matcher(str);
         if (matcher.matches()) {
             //significa que se trata de 3 números entre 0 y nueve
-            System.out.println("el paterrn  \"" + str + "\"  es  valido ");
+            //System.out.println("el paterrn  \"" + str + "\"  es  valido ");
             return true;
         }
-        System.out.println("el paterrn  \"" + str + "\" no es  valido ");
+        //System.out.println("el paterrn  \"" + str + "\" no es  valido ");
         return false;
     }
 
@@ -232,19 +233,18 @@ public class Order extends Operation {
     public int setDetail(String ref, int amount) {
         //Primeramente comprovaremos los datos que nos ha enviado el usuario (no sabemos lo que hay, solo conocemos que es un strring y un int)
         if (amount <= 0) {
-            System.out.println("error: pon una cantidad mayor en el pedido \"" + ref + "\"");
             return 0;//lo echamos de la función
         }
         //comparamos el valor del usuario, no le permitimos tener letras o ser igual a 000, esta última comprovación no es realmente obligatoria pero no me parece bien que exista un producto 000
-        if (strIntValue(ref) == false || ref == "000") {
-            System.out.println("la cantidad  \"" + ref + "\" no es  valida ");
+        if (strIntValue(ref) == false || ref.equals("000")) {
+            // System.out.println("la cantidad  \"" + ref + "\" no es  valida ");
             return 0;//lo echamos de la función
         }
         //en el caso de que la referencia ya exista (es como una clave primaria, no podemos permitir que haya redundancia)
         for (OrderDetail row : orderDetail) {
             if (row.getRef().equals(ref)) {
                 //Si se da el caso de que la referencia ya existe
-                System.out.println("la referencia  \"" + ref + "\" no es  valida ");
+                // System.out.println("la referencia  \"" + ref + "\" no es  valida ");
                 return 0;
             }
         }
@@ -252,6 +252,8 @@ public class Order extends Operation {
         //Registramos el tamaño que tenía antes de hacer nada el ArrayList
         int count = this.getNumDetails();
         //Creamos un nuevo objeto tipo OrderDetail
+//nueva instancia del catálogo y esta misma carga los datos del catalogo con el método loadCatalog
+        
         OrderDetail od = new OrderDetail(productCatalog.getMarketable(ref), amount);    //Este objeto recibe una transformación a el tipo Marketable mediante la clase ProductCatalog
         this.orderDetail.add(od);    //Usamos la función .add para agregar e campo
         //Devolvemos un 1 o un 0 según el tipo de resultado
@@ -273,6 +275,7 @@ public class Order extends Operation {
 
     //Método que nos devuelve una posición del ArrayList según su posición
     public String getDetail(int pos) {
+System.out.println("Esto es un get DEtails!");
         if (pos >= 1 && this.getNumDetails() >= pos) {   //al tratarse de un array la posición más pequeña será 1. Todas las posiciones inferiores a 1 serán inexistentes, no lo comprobaremos, y si son más grandes que nuestro ArrayList no las comprobaremos
             OrderDetail row = this.orderDetail.get(pos - 1);    //Creamos una variable de tipo OrderDetail
             String rowString = this.configJsonDetail(row);  //Usamos el método creado para poder generar la respuesta en base a la posición seleccionada
@@ -285,7 +288,7 @@ public class Order extends Operation {
 //Mñetodo que nos devuelve una posición del ArrayList según su referencia
 
     public String getDetail(String ref) {
-
+System.out.println("Esto es un get DEtails!");
         if (this.strIntValue(ref)) {
             //Recorremos el arrayList orderDetail
             for (OrderDetail product : orderDetail) {
@@ -302,14 +305,22 @@ public class Order extends Operation {
     }
 
     //Método extra (no lo pide el ejercicio)
-    public void getAllDetails() {
-        if (this.getNumDetails() > 1) {
-            String bigString = null;
+    public String getAllDetails() {
+        if (this.getNumDetails() >= 1) {
+            String bigString = "";
+            int counter = 0;
             for (OrderDetail product : orderDetail) {
-
-                System.out.println("{\"ref\":\"" + product.getRef() + "\",\"name\":\"" + product.getName() + "\",\"price\":\"" + product.getPrice() + "\"}");
+                counter++;
+                if ((this.getNumDetails() - 1) == counter) {
+                    bigString += "{\"ref\":\"" + product.getRef() + "\",\"name\":\"" + product.getName() + "\",\"price\":\"" + product.getPrice() + "\"},";
+                } else {
+                    bigString += "{\"ref\":\"" + product.getRef() + "\",\"name\":\"" + product.getName() + "\",\"price\":\"" + product.getPrice() + "\"}";
+                }
+                //System.out.println("{\"ref\":\"" + product.getRef() + "\",\"name\":\"" + product.getName() + "\",\"price\":\"" + product.getPrice() + "\"}");
             }
+            return bigString;
         }
+        return null;
     }
 
     //Método que nos actualiza el detalle mediante su posición en el arrayList

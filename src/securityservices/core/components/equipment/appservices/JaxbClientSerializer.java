@@ -1,12 +1,16 @@
-package securityservices.core.components.equipment.appservices;
+
+;
 
 import securityservices.core.components.client.appservices.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import securityservices.core.components.client.domain.services.ClientDTO;
+import securityservices.core.components.client.domain.services.JaxbClientDTO;
 import securityservices.core.components.shared.exception.ServiceException;
 import securityservices.core.components.shared.services.serializers.Serializer;
 import securityservices.core.components.shared.services.serializers.xmlapis.Jaxb;
+
+
 
 public class JaxbClientSerializer extends Jaxb implements Serializer {
 
@@ -32,13 +36,13 @@ public class JaxbClientSerializer extends Jaxb implements Serializer {
 //String name, String email, String birthday, String password, String phone, String ident, String address, int numEquipments, int clientCode) {    
             ClientDTO cdto = new ClientDTO(
                     jaxbcdto.getName(),
+                    jaxbcdto.getCode(),
                     jaxbcdto.getEmail(),
                     jaxbcdto.getBirthday(),
-                    jaxbcdto.getPassword(),
                     jaxbcdto.getPhone(),
-                    jaxbcdto.getClientCode(),
                     jaxbcdto.getAddress(),
-                    jaxbcdto.getClientCode(),
+                    jaxbcdto.getPassword(),
+                    jaxbcdto.getClientId(),
                     Integer.valueOf(jaxbcdto.getNumEquipments())
             );
             return cdto;
@@ -54,12 +58,12 @@ public class JaxbClientSerializer extends Jaxb implements Serializer {
         try {
             JaxbClientDTO jaxbcdto = new JaxbClientDTO(
                     ((ClientDTO) clientDto).getName(),
+                    ((ClientDTO) clientDto).getIdent(),
                     ((ClientDTO) clientDto).getEmail(),
                     ((ClientDTO) clientDto).getBirthday(),
-                    ((ClientDTO) clientDto).getPassword(),
                     ((ClientDTO) clientDto).getPhone(),
-                    ((ClientDTO) clientDto).getIdent(),
                     ((ClientDTO) clientDto).getAddress(),
+                    ((ClientDTO) clientDto).getPassword(),
                     ((ClientDTO) clientDto).getClientCode(),
                     ((ClientDTO) clientDto).getNumEquipments());
             return super.prepareMarshal(jaxbcdto);

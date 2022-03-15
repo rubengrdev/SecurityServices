@@ -12,13 +12,13 @@ public class OrderDTO {
 
     private final String code, paymentType, status, comments, paymentDate, reciverName, deliveryAddress;
     private final double value, surcharges;
-    private final String beginDate, finishDate, interested;
+    private final String beginDate, finishDate, interested, details;
 
 //con envio
     public OrderDTO(String code, String interested, double value,
             double surcharges, String status, String comments, String beginDate,
             String finishDate, String paymentType, String paymentDate, String reciverName,
-            String deliveryAddress) {
+            String deliveryAddress, String details) {
 
         this.code = code;
         this.interested = interested;
@@ -32,6 +32,7 @@ public class OrderDTO {
         this.paymentDate = paymentDate;
         this.reciverName = reciverName;
         this.deliveryAddress = deliveryAddress;
+        this.details = details;
     }
 
     public String getCode() {
@@ -82,5 +83,8 @@ public class OrderDTO {
         return deliveryAddress;
     }
 
-    
+    public String getDetails() {
+        return details;
+    }
+
 }

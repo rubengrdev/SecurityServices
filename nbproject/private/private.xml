@@ -3,7 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/order/appservices/JsonOrderSerializer.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/order/domain/model/OrderDetail.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/management/catalogs/serializers/GetCatalogProduct.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/test/TestsJSON/ClientSerializer.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/management/catalogs/serializers/GetStakeHolder.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/shared/services/serializers/Xml.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/client/appservices/XmlClientSerializer.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/client/appservices/JsonClientSerializer.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/order/domain/model/Order.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/order/domain/services/OrderDTO.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/test/TestsXML/ClientSerializer.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/order/domain/services/OrderMapper.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/shared/catalogs/ProductCatalog.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/shared/services/serializers/jsonapis/JavaJson.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/test/TestsJSON/EquipmentSerializer.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/src/securityservices/core/components/shared/services/serializers/Dom.java</file>
+            <file>file:/home/suspicious-developer/Desktop/M3%20-%20Programacion/code/SecurityServicesCleanArch/test/TestsJSON/OrderSerializer.java</file>
         </group>
     </open-files>
 </project-private>

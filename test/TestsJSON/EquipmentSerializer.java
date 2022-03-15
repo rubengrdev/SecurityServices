@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Tests;
+package TestsJSON;
 
 import securityservices.core.components.equipment.appservices.JsonEquipmentSerializer;
 import securityservices.core.components.equipment.domain.model.Equipment;
@@ -10,6 +10,9 @@ import securityservices.core.components.equipment.domain.services.EquipmentDTO;
 import securityservices.core.components.equipment.domain.services.EquipmentMapper;
 import securityservices.core.components.shared.exception.BuildException;
 import securityservices.core.components.shared.exception.ServiceException;
+import securityservices.core.components.shared.services.serializers.Serializer;
+import securityservices.management.catalogs.serializers.SerializerCatalog;
+import securityservices.management.catalogs.serializers.SerializerType;
 
 /**
  *
@@ -82,10 +85,12 @@ public class EquipmentSerializer {
                 System.out.println("---------------------------------------------------------------------------------------------------------------------------------------");
                 auxEdto = (EquipmentDTO) jeSerializer.unserialize(newJsonEquipment2);
                 auxEquipment = EquipmentMapper.equipmentFromDTO(auxEdto);
-                          System.out.println(auxEquipment.getCode() + ":" + auxEquipment.getName() + ":" + auxEquipment.getType() + ":" + auxEquipment.getMaker() + ":"
+                System.out.println(auxEquipment.getCode() + ":" + auxEquipment.getName() + ":" + auxEquipment.getType() + ":" + auxEquipment.getMaker() + ":"
                         + auxEquipment.getDescription() + ":" + auxEquipment.getPrice() + ":" + auxEquipment.getTaxes() + ":" + auxEquipment.getHigh() + ":"
                         + auxEquipment.getWide() + ":" + auxEquipment.getDeep() + ":" + auxEquipment.getWeight() + ":" + auxEquipment.getFragile() + ":"
                         + auxEquipment.getFunction() + ":" + auxEquipment.getComponents() + ":" + auxEquipment.getPower());
+             
+
             } catch (ServiceException ex) {
                 System.out.println(ex);
             }

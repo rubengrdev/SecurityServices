@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Tests;
+package TestsJSON;
 
 import securityservices.core.components.client.appservices.JsonClientSerializer;
 import securityservices.core.components.client.domain.model.Client;
